@@ -6,6 +6,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="게시판" name="title"/>
 </jsp:include>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
 /*글쓰기버튼*/
 input#btn-add{float:right; margin: 0 0 15px;}
@@ -24,9 +26,52 @@ $(() => {
 		
 		location.href = `${pageContext.request.contextPath}/board/boardDetail.do?no=\${no}`
 	});
+		
+	$("#searchTitle").autocomplete({
+		source(request, response) {
+			//서버통신 이후 success메소드에서 response를 호출할 것!
+			//console.log(request); //사용자 입력값
+			//console.log(response); //response([{label:?, value:?}, {label:?, value:?}, ...])
+			
+			//ajax 호출
+			$.ajax({
+				url : "${pageContext.request.contextPath}/board/searchTitle.do",
+				data : {
+					searchTitle : request.term //autocomple의 reqeust에서 입력값 받음
+				},
+				//method: "GET", //기본값이 GET이므로 생략가능
+				//dataType: "json", //응답 데이터타입에 따라 jQuery가 맞춰주므로 생략해도 된다.
+				success(data) {
+					console.log(data);
+					var res = $.map(data, ({no, title}) => ({
+						label: title,
+						value: title,
+						no
+					}));
+					
+					console.log(res);
+					
+					response(res);
+				},
+				error(xhr, status, err) {
+					console.log(xhr, status, err);
+				}
+			});
+		},
+		select(e, {item: {no}}) {
+			//const no = selected.item.no;
+			location.href = `${pageContext.request.contextPath}/board/boardDetail.do?no=\${no}`;
+		},
+		focus(e, focus) {
+			//포커스를 가져도 선택되지 않도록함.
+			return false;
+		}
+	});
 });
+
 </script>
 <section id="board-container" class="container">
+	<input type="search" placeholder="제목 검색..." id="searchTitle" class="form-control col-sm-3 d-inline" />
 	<input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goBoardForm();"/>
 	<table id="tbl-board" class="table table-striped table-hover">
 		<tr>

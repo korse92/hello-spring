@@ -24,7 +24,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("/ 요청!!");
+		logger.info("/ 요청!~!!!!!!!!!!!!");
 		return "forward:/index.jsp";
 	}
 }

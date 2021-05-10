@@ -24,4 +24,6 @@ public interface BoardDao {
 
 	Attachment selectOneAttachment(int no);
 
+	List<Map<String, Object>> selectBoardList(String searchTitle);
+
 }

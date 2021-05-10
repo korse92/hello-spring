@@ -5,7 +5,7 @@
 ### Custom ###
 
 # ignore properties file
-data-source.properties
+src/main/resources/data-source.properties
 
 ### Eclipse ###
 .classpath

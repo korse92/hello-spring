@@ -117,4 +117,19 @@
 		where
 			no = #{no}
 	</select>
+	
+	<select id="selectBoardListByTitle" resultType="map">
+		select
+			no "no",
+			title "title"
+		from
+			board
+		where
+			title like '%' || #{searchTitle} || '%'
+	</select>
+	
+	<resultMap type="map" id="boardAutoCompleteMap">
+		<id column="no" property="value"/>
+		<result column="title" property="label"/>
+	</resultMap>
 </mapper>

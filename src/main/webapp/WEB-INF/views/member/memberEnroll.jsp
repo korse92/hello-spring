@@ -115,7 +115,7 @@ $("#id").keyup(e => {
 	}
 	
 	$.ajax({
-		url: "${pageContext.request.contextPath}/member/checkIdDuplicate1.do",
+		url: "${pageContext.request.contextPath}/member/checkIdDuplicate4.do",
 		data: {id},
 		success: data => {
 			console.log(data);
@@ -143,13 +143,23 @@ $("#passwordCheck").blur(function(){
 		$password.select();
 	}
 });
-	
+
+/**
+ * 회원 등록 유효성 검사
+ */
 $("[name=memberEnrollFrm]").submit(function(){
 
 	var $id = $("#id");
 	if(/^\w{4,}$/.test($id.val()) == false) {
 		alert("아이디는 최소 4자리이상이어야 합니다.");
 		$id.focus();
+		return false;
+	}
+	
+	//중복검사여부
+	var $idValid = $("#idValid");
+	if($idValid.val() == 0){
+		alert("아이디 중복 검사해주세요.");
 		return false;
 	}
 	

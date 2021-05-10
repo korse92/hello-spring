@@ -1,5 +1,9 @@
 package com.kh.spring.member.model.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,6 +29,14 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int updateMember(Member member) {
 		return session.update("member.updateMember", member);
+	}
+
+	@Override
+	public List<Member> selectMemberList(Map<String, Object> param) {
+		int offset = (int)param.get("offset");
+		int limit = (int)param.get("limit");
+		
+		return session.selectList("member.selectMemberList", null, new RowBounds(offset, limit));
 	}
 
 }

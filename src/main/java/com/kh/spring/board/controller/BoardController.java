@@ -250,5 +250,17 @@ public class BoardController {
 						.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=\"" + originalFileName + "\"")
 						.body(resource);
 	}
+	
+	@GetMapping("/searchTitle.do")
+	public ResponseEntity<?> autoComplete(@RequestParam String searchTitle) {
+		//1. 업무로직
+		List<Map<String, Object>> list = boardService.selectBoardList(searchTitle);
+		
+		log.debug("map = {}", list);
+		
+		//2. json변환 객체		
+		return ResponseEntity.ok()
+							 .body(list);
+	}
 
 }
