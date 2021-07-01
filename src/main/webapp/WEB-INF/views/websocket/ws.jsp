@@ -15,26 +15,27 @@
 <div>
 	<ul class="list-group list-group-flush" id="data"></ul>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js" integrity="sha512-hsqWiVBsPC5Hz9/hy5uQX6W6rEtBjtI8vyOAR4LAFpZAbQjJ43uIdmKsA7baQjM318sf8BBqrMkcWsfSsaWCNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 //websocket객체 생성
 //const ws = new WebSocket(`ws://\${location.host}${pageContext.request.contextPath}/mmm`);
 
-//http프로토콜로 통신시작, 
+//http프로토콜로 통신시작,
 //1. websocket사용가능한 경우는 ws프로토콜 업그레이드
 //2. (fallback) websocket 지원하지 않을 경우 xhr-stream, xhr-polling중에 적합한 방식으로 통신
-//const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/mmm`); //sockjs로 웹소켓 객체 생성 
-const ws = new SockJS("http://" + location.host + "${pageContext.request.contextPath}/mmm"); //sockjs로 웹소켓 객체 생성 
+//const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/mmm`); //sockjs로 웹소켓 객체 생성
+const ws = new SockJS("http://" + location.host + "${pageContext.request.contextPath}/mmm"); //sockjs로 웹소켓 객체 생성
 
 ws.onopen = e => {
 	console.log("onopen : ", e);
 };
 ws.onmessage = e => {
-	console.log("onmessage : ", e);	
+	console.log("onmessage : ", e);
 	const obj = JSON.parse(e.data);
 	console.log(obj);
 	const {id, message, type, time} = obj; //구조분해 할당
-	
+
 	const $data = $("#data"); //ul태그
 	$data.append(`<li class="list-group-item"> \${id} : \${message} </li>`);
 };

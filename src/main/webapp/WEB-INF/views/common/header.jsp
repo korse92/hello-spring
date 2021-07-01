@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 <!-- 사용자작성 css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <!-- redirectAttr.addFlashAttribute의 저장된 속성값 사용(1회용) -->
 <c:if test="${not empty msg}">
@@ -80,7 +80,7 @@ alert("${msg}");
 			    	<span><a href="${pageContext.request.contextPath}/member/memberDetail.do">${loginMember.name}</a>님, 안녕하세요.</span>
 			    	&nbsp;
 			    	<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href='${pageContext.request.contextPath}/member/logout.do';">로그아웃</button>
-			    </c:if>			    
+			    </c:if>
 			 </div>
 		</nav>
 	</header>
